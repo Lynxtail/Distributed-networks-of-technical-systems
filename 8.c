@@ -18,12 +18,10 @@ int main(void)
         } else {
             printf("%d", c);
         }
+    } else if (b > c) {
+        printf("%d", b);
     } else {
-        if (b > c) {
-            printf("%d", b);
-        } else {
-            printf("%d", c);
-        }
+        printf("%d", c);
     }
     return 0;
 }

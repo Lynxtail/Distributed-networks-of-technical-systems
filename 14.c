@@ -22,12 +22,10 @@ int main(void)
         } else {
             printf("%d", a_3);
         }
+    } else if (a_2 > a_3) {
+        printf("%d", a_2);
     } else {
-        if (a_2 > a_3) {
-            printf("%d", a_2);
-        } else {
-            printf("%d", a_3);
-        }
+        printf("%d", a_3);
     }
     return 0;
 }
