@@ -8,7 +8,7 @@ int count(char tmp, int cnt){
     if (tmp = getchar() != '.') {
         putchar(tmp);
         if (tmp == 'a') cnt++;
-        count(tmp, cnt);
+        return count(tmp, cnt);
     }
     return cnt;
 }
