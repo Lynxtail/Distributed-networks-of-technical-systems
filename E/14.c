@@ -5,8 +5,9 @@
 
 int main(void){
     int i, n = 10;
-    int first_arr[n], second_arr[n / 2];
+    int first_arr[n], second_arr[n];
     for (i = 0; i < n; i++) scanf("%d", &first_arr[i]);
+    for (i = 0; i < n; i++) second_arr[i] = -__INT_MAX__;
     int j = 0;
     for (i = 0; i < n; i++){
         int flag = 0;
@@ -16,7 +17,7 @@ int main(void){
                 break;
             }
         if (flag == 0){
-            for (int l = 0; l < n; j++)
+            for (int l = i + 1; l < n; l++)
                 if (first_arr[i] == first_arr[l]) {
                     second_arr[j++] = first_arr[i];
                     break;
