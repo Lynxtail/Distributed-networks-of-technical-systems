@@ -5,8 +5,7 @@
 #include <stdio.h>
 
 int count(char tmp, int cnt){
-    if (tmp = getchar() != '.') {
-        putchar(tmp);
+    if ((tmp = getchar()) != '.') {
         if (tmp == 'a') cnt++;
         return count(tmp, cnt);
     }
