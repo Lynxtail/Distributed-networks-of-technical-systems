@@ -14,10 +14,11 @@ int main(void){
                 count_array[i]--;
                 count_array[j]++;
             }
-    for (i = 0; i < n; i++) printf("%d ", count_array[i]);
-    int max = 0;
-    for (i = 0; i < n; i++) if (count_array[i] > max) max = i;
-    printf("\n%d", max);    
-    printf("\n%d", value_array[i]);
+    int max = 0, max_ind = 0;
+    for (i = 0; i < n; i++) if (count_array[i] > max) {
+        max = count_array[i];
+        max_ind = i;
+    }
+    printf("\n%d", value_array[max_ind]);
     return 0;
 }
