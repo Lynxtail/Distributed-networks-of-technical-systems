@@ -1,4 +1,4 @@
-// Вывести в порядке следования цифры, входящие в десятичную запись натурального числа N. 
+// Переставить цифры в числе так, что бы получилось максимальное число.
 
 #include <stdio.h>
 
@@ -6,7 +6,7 @@ int choose_base(int arr[], int l, int r) {
     int tmp, x = arr[r], less = l;
 
     for (int i = l; i < r; ++i)
-        if (arr[i] <= x) {
+        if (arr[i] >= x) {
             tmp = arr[less];
             arr[less] = arr[i];
             arr[i] = tmp;
@@ -37,6 +37,12 @@ int main(void){
         i++;
     } while (n != 0);
     quick_sort(digits, 0, i - 1);
-    for (int j = 0; j < i; j++) printf("%d ", digits[j]);
+    int ans = 0;
+    for (int j = 0; j < i; j++){
+        ans += digits[j];
+        ans *= 10;
+    }
+    ans /= 10;
+    printf("%d", ans);
     return 0;
 }
