@@ -20,19 +20,14 @@ void sort_array(int size, int a[]){
                 is_sorted = 0;
             }
         }
-    } while(is_sorted !=1);
+    } while(is_sorted != 1);
     for (int i = 0; i < size; i++) printf("%d ", a[i]);
 }
 
 void digits(int a, int *size, int *arr){
-    int i, tmp = a, cnt = 0;
+    int i = 0, tmp = a, cnt = 0;
     do {
-        tmp /= 10;
-        cnt++;
-    } while (tmp != 0);
-    tmp = a;
-    do {
-        *(arr + i) = tmp % 10;
+        *(arr + i++) = tmp % 10;
         tmp /= 10;
         cnt++;
     } while (tmp != 0);
@@ -41,11 +36,12 @@ void digits(int a, int *size, int *arr){
 
 int main(void)
 {
-    int n, size_p, digit_p;
+    int n, size_p;
+    int digit_p[1000];
     scanf("%d", &n);
-    digits(n, &size_p, &digit_p);
-    printf("%d ", size_p);
-    // for (int i = 0; i < size_p; i++) printf("%d ", *(&digit_p + i));
-    // sort_array(digits(n)[0], digits(n)[1]);
+    digits(n, &size_p, digit_p);
+    // printf("%d ", size_p);
+    // for (int i = 0; i < size_p; i++) printf("%d ", digit_p[i]);
+    sort_array(size_p, digit_p);
     return 0;
 }
