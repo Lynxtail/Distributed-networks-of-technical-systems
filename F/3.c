@@ -31,12 +31,12 @@ void digits(int a, int *size, int *arr_val, int *arr_cnt){
     do {
         is_exist = 0;
         for (int j = 0; j < cnt; j++)
-            if (tmp % 10 == *(arr_val + i)) {
+            if (tmp % 10 == *(arr_val + j)) {
                 is_exist = 1;
                 *(arr_cnt + j) += 1;
                 break;
             }
-        if (!is_exist) {    
+        if (is_exist != 1) {    
             *(arr_val + i++) = tmp % 10;
             cnt++;
         }
