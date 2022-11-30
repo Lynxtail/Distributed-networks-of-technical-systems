@@ -6,23 +6,17 @@
 #include <stdlib.h>
 
 int is_two_same(int size, int a[]){
-    int tmp, count;
-    _Bool flag = 0;
+    int count;
     for (int i = 0; i < size; i++){
-        tmp = a[i];
         count = 0;
-        for (int j = 0; j < size; j++)
-            if (tmp == a[j]){
-                count++;
-                if (count == 2) flag = 1;
-                // flag = 1;
-                break;
-            }
+        for (int j = i + 1; j < size; j++)
+            if (a[i] == a[j]) count++;
+        if (count) return 1;
     }
-    return flag;
+    return 0;
 }
 int main(void) {
-    int arr[10] = {1, 2, 3, 4, 5, 9, 6, 1};
+    int arr[10] = {1, 2, 3, 4, 5, 9, 6, 0, 10, 11};
     printf("%d ", is_two_same(10, arr));
     return 0;
 }
