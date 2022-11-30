@@ -1,108 +1,30 @@
+// Составить только функцию которая в массиве находит максимальный из отрицательных
+// элементов и меняет его местами с последним элементом массива. Гарантируется, что в
+// массиве только один такой элемент или же такой элемент отсутствует. Если отрицательных
+// элементов нет - массив не менять
+
 #include <stdio.h>
-#include <stdlib.h> 
-  
-void sort_array(int n, int *a);  
-void swap_negmax_last( int n, int *mass);
-  
-void swap_negmax_last( int n, int *mass){
 
-    //int n;
-    int tmp=0;
-    int tmp1=0;
-    int j = 0;
-    int tmpindex =0;
-
-    //puts("Vvedite Razmer massiva");
-    //scanf("%d", &n);
-
-    //int mass[n];
-    int neg_mass[n];
-
-
-    //for(size_t i=0; i<n; i++) 
-    //{
-    //    scanf("%d", &mass[i]);
-    //}
-
-    //printf("\n");
-
-    printf("before\n");
-    for (size_t i = 0; i < n; i++)
-    {
-        printf("%d ", mass[i]);
-    }
-
-    for ( size_t i = 0; i < n; i++)
-    {
-        if (mass[i]<0)
-        {
-            neg_mass[j] = mass[i];
-            j++;
+void swap_negmax_last(int size, int a[])
+{
+    int max = -__INT_MAX__;
+    int k = 0;
+    for(int i = 0; i < size; ++i)
+        if (a[i] < 0 && a[i] > max) {
+            max = a[i];
+            k = i;
         }
-        
-    }
-
-    sort_array(j,neg_mass);
-    tmp = neg_mass[j-1];
-
-    for( int i = 0; i<n; i++)
-    {   
-        for (size_t j = 0; j < n; j++)
-        {
-            if (mass[j]>mass[j+1])
-            {
-                tmp1 = mass[j];
-                tmpindex = j;
-            }
-            
-        }
-
-    }
-    
-    printf("\n%d", tmpindex);
-    for (size_t i = 0; i < n; i++)
-    {
-        if (mass[i] == tmp)
-        {
-            mass[i] = tmp1;
-            mass[tmpindex] = tmp;
-        }
-        
-    }
-
-    printf("\n");
-    printf("after\n");
-    for (size_t i = 0; i < n; i++)
-    {
-        printf("%d ", mass[i]);
-    }
-    
-    
+    a[size - 1] ^= a[k];
+    a[k] ^= a[size - 1];
+    a[size - 1] ^= a[k];
+    for (int i = 0; i < size; i++) printf("%d ", a[i]);
 }
 
-
-
-
-
-
-
-
-
-
-void sort_array(int size, int *a){
-        
-
-
-    for(int i = 0 ; i < size; i++) { 
-
-        for(int j = 0 ; j < size  ; j++) { 
-
-            if(a[j] > a[j+1]) {           
-
-                int tmp = a[j];
-                a[j] = a[j+1] ;
-                a[j+1] = tmp; 
-           }
-        }
-    }
+int main()
+{
+    int n = 10;
+    int array[10] = {1, -2, -3, -4, 5, 6, 7, 8, 9, 10};
+    // for (int i = 0; i < n; i++) scanf("%d", &array[i]);
+    swap_negmax_last(n, array);
+    return 0;
 }

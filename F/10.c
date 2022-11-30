@@ -1,46 +1,30 @@
+//Упаковать строку Дана строка состоящая из маленьких латинских букв 'a'..'z'. 
+//В конце строки точка. Необходимо заменить повторяющиеся буквы на <буква><количество повторений> 
+
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 
-int compression_str( char *mass, int n);
-
-
-int compression_str(char *mass, int n){
-
-    //int n;
-    register size_t i,j;
-    int count = 0;
-    //puts("Vvedite Razmer massiva");
-    //scanf("%d", &n);
-    //fflush(stdin);
-
-    //char mass[n];
-    char zip_mass[n];
-
-
-    //puts("Enter str");
-    //fgets(mass,n,stdin);
-    //fflush(stdin);
-
-
-
-    for ( i = 0; i < (int)strlen(mass)-1; i++)
-    {
-        if (mass[i]==mass[i+1])
-        {
-            count++;
-
-        } else {
-            count++;
-            printf("%c - %d\n",mass[i], count);
-            count = 0;
+void compression_str(char s[]) {
+    int i = 0, j = 0, count = 1;
+    char str[100];
+    int arr_cnt[100];
+    while (s[i] != '.') {
+        while(s[i] == s[i+1]) {
+            ++count; ++i;
         }
-        
+        str[j] = s[i];
+        arr_cnt[j] = count;
+        ++i; ++j;
+        count = 1;
     }
-    
+    for (int i = 0; i < j; i++) printf("%c%d", str[i], arr_cnt[i]);
+}
 
-    
-
-   return 0;
-
+int main(void)
+{
+    char str[100];
+    gets(str);
+    compression_str(str);
+    return 0;
 }
