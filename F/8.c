@@ -1,67 +1,45 @@
+// В последовательности записаны целые числа от M до N ( M меньше N, M больше или равно 1)в
+// произвольном порядке, но одно из чисел пропущено (остальные встречаются ровно по одному
+// разу). N не превосходит 1000. Последовательность заканчивается числом 0. Определить
+// пропущенное число
+
 #include <stdio.h>
-#include <stdlib.h>
 
-int find_max_array(int size, int a[]){
-    int max = 0;
-    for (int i = 0; i < size; i++)
-        if (max < a[i]) max = a[i];
-    return max;
+void swap(int *a, int *b){
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
 }
 
-int find_min_array(int size, int a[]){
-    int min = __INT_MAX__;
-    for (int i = 0; i < size; i++)
-        if (min < a[i]) min = a[i];
-    return min;
+void sort_array(int size, int a[]){
+    _Bool is_sorted;
+    do {
+        is_sorted = 1;
+        for(int i = 0; i < size - 1; i++){
+            if(a[i] > a[i + 1]){
+                swap(&a[i], &a[i + 1]);
+                is_sorted = 0;
+            }
+        }
+    } while(is_sorted !=1);
 }
 
-int find_missed(int n, int mass[], int min, int max){
-    for (int i = 0; i < n; i++)
-        if (mass[i + 1] != (mass[i] + 1))
-            printf("missed: %d", mass[i] + 1);
+void find_missed(int size, int a[])
+{
+   sort_array(size, a);
+   int k = a[0];
+   int i = 0;
+   while(k == a[i]) {
+       ++k; ++i;
+   }
+   printf("%d", k);
 }
 
-int main(void){
-    int n = 5;
-    int arr[n];
-    for(int i = 0; i < n; i++) scanf("%d", &arr[i]);
-    int min = find_min_array(n, arr);
-    int max = find_max_array(n, arr);
-    find_missed(n, arr, min, max);
+int main()
+{
+    int n = 10;
+    int array[10] = {2, 3, 1, 4, 7, 6, 9, 8, 10, 0};
+    // for (int i = 0; i < n; i++) scanf("%d", &array[i]);
+    find_missed(n, array);
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-void sort_array(int size, int *a){
-        
-
-
-    for(int i = 0 ; i < size; i++) { 
-
-        for(int j = 0 ; j < size  ; j++) { 
-
-            if(a[j] > a[j+1]) {           
-
-                int tmp = a[j];
-                a[j] = a[j+1] ;
-                a[j+1] = tmp; 
-           }
-        }
-    }
-}
-
