@@ -17,7 +17,7 @@ void sort_array(int size, int a[]){
                 is_sorted = 0;
             }
         }
-    } while(is_sorted !=1);
+    } while(is_sorted != 1);
 }
 
 int main(void)

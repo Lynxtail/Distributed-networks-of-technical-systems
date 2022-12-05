@@ -16,7 +16,7 @@ int is_two_same(int size, int a[]){
     return 0;
 }
 int main(void) {
-    int arr[10] = {1, 2, 3, 4, 5, 9, 6, 0, 10, 11};
+    int arr[10] = {1, 2, 3, 4, 5, 9, 6, 0, 10, 1};
     printf("%d ", is_two_same(10, arr));
     return 0;
 }
