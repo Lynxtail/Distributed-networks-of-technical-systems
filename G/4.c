@@ -25,9 +25,6 @@ int main(void){
     while ((tmp = fgetc(f)) != EOF) str_2[j++] = tmp;
     fclose(f);
 
-    printf("%s\n", str_1);
-    printf("%s\n", str_2);
-
     _Bool flags[(int) fminf(i, j)];
     for (int l = 0; l < (int) fmaxf(i, j); l++) flags[l] = 0;
 
@@ -37,25 +34,12 @@ int main(void){
                 count(str_1[l], str_1) + count(str_1[l], str_2) == 2) 
                     flags[l] ^= 1;
 
-    printf("%s\n", str_1);
-    printf("%s\n", str_2);
-    // сравнить строки
-
     char str_ans[(int) fminf(i, j)];
-    for (int i = 0; i < 100; i++) str_ans[i] = NULL;
-    printf("%s\n", str_1);
-    printf("%s\n", str_2);
+    for (int i = 0; i < (int) fminf(i, j); i++) { str_ans[i] = 0; }
     
     int k = 0;
     for (int l = 0; l < (int) fmaxf(i, j); l++)
         if (flags[l]) str_ans[k++] = str_1[l];
-    printf("%s\n", str_1);
-    printf("%s\n", str_2);
-
-    for (int i = 0; i < sizeof(flags) / sizeof(flags[0]); i++) printf("%d, ", flags[i]);
-    printf("\n%s %d - %s %d\n", str_1, count('l', str_1), str_2, count('l', str_2));
-    printf("%s %d - %s %d\n", str_1, count('o', str_1), str_2, count('o', str_2));
-    printf("%s", str_ans);
 
     f = fopen("output.txt", "w");
     fprintf(f, "%s", str_ans);
