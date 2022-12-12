@@ -8,18 +8,11 @@
 
 char* is_palindrom(char str[]){
     int len = strlen(str);
-    char first[len], second[len];
-    for (int i = 0; i < len; i++) { first[i] = NULL; second[i] = NULL; }
-    printf("\n%d %s %s", len, first, second);
-    for (int i = 0; i < len / 2; i++) first[i] = str[i];
-    printf("\n%d %s %s", len, first, second);
-    if (len % 2 != 0) first[len / 2] = str[len / 2];
-    printf("\n%d %s %s", len, first, second);
-    for (int i = len / 2; i < len; i++) {
-        printf("\n%s", str);
-        second[i] = str[i];}
-    printf("\n%d %s %s", len, first, second);
-    if (strcmp(first, strrev(second)) == 0) return "YES";
+    _Bool flag = 1;
+    int tmp = (len % 2 == 0) ? len / 2 : len / 2 + 1;
+    for (int i = 0, j = len - 1; i < tmp; i++, j--)
+        if (str[i] != str[j]) { flag = 0; break; }
+    if (flag) return "YES";
     return "NO";
 }
 

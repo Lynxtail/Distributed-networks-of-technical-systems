@@ -2,6 +2,7 @@
 // количество символов в ней
 
 #include <stdio.h>
+#include <string.h>
 
 int main(void){
     FILE *f;
@@ -11,9 +12,8 @@ int main(void){
     f = fopen("input.txt", "r");
     fgets(str, 100, f);
     fclose(f);
-    i = 0;
     f = fopen("output.txt", "w");
-    fprintf(f, "%s, %s, %s %d", str, str, str, i);
+    fprintf(f, "%s, %s, %s %d", str, str, str, strlen(str));
     fclose(f);
     return 0;
 }

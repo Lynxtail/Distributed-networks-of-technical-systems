@@ -17,8 +17,10 @@ int main(void){
     fclose(f);
 
     char tmp_word[strlen(str)], max_word[strlen(str)];
+
     for (int i = 0; i < strlen(str); i++) { tmp_word[i] = NULL; max_word[i] = NULL; }
     int count = 0, max_count = 0;
+    
     for (int i = 0; i < strlen(str); i++) {
         if (str[i] == ' ') {
             if (count > max_count) max_count = count;

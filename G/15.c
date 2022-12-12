@@ -15,13 +15,13 @@ int main(void){
     fgets(str, 1000, f);
     fclose(f);
 
-    int tmp = strstr(str, "Cao");
+    char *tmp = strstr(str, "Cao");
     int j = 0; char rep[] = "Ling";
+    
     while (tmp != NULL) {
-        printf("%d ", tmp);
-        for (int i = strlen(str); i > tmp + 1; i--) str[i] = str[i - 1];
+        for (int i = strlen(str); i > (tmp - str) + 2; i--) str[i] = str[i - 1];
         j = 0;
-        for (int i = tmp - 1; i < tmp + 3; i++) str[i] = rep[j++];
+        for (int i = tmp - str; i < (tmp - str) + 4; i++) str[i] = rep[j++];
         tmp = strstr(str, "Cao");
     }
     
