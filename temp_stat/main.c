@@ -3,23 +3,32 @@
 #include <string.h>
 #include <ctype.h>
 
-struct month { int max, min, average; };
+struct month { int max, min; float average; };
 
 _Bool check_line(char *line) {
-    for (size_t i = 0; i < strlen(line); i++)
-        if (!(strpbrk(line, "0123456789-; ")))
-            return 0;
+    if (!(strpbrk(line, "0123456789-; "))) return 0; // нужно "состоит ТОЛЬКО из символов под строки"
     return 1;
+    // char tmp[] = {"0123456789-; "}; _Bool flag = 1;
+    // for (size_t i = 0; i < strlen(line); i++) {
+    //     if (line[i] != '\0') flag = 0;
+    //     for (size_t j = 0; j < strlen(tmp); j++)
+    //         if (line[i] == tmp[j]) { flag = 1; break; }
+    // }
+    // for (size_t i = 0; i < strlen(line); i++)
+    //     if (!(line[i] >= '0' && line[i] <= '9' || line[i] == '-' || line[i] == ';')) flag = 0;
+    // return flag;            
+    
 }
 
-int mean(int n){
-    static int old_mean = 1;
-    return old_mean + old_mean / n;
+int mean(int n, float old_mean, int x){
+    // static int old_mean = start_value;
+    printf("i = %d: mean = %f\n", n, (float) (n - 1) / (float) n * old_mean + (float) x / (float) n);
+    return (float) (n - 1) / (float) n * old_mean + (float) x / (float) n;
 }
 
 void read_line(char *line, int *year, int *month, int *day, int *hour, int *minute, int *temperature) {
     const char *tmp = strtok(line, ";");
-    
+    printf("       ");
     while (tmp != NULL) {
         int *res = 0;
         !*(res = year) || 
@@ -28,14 +37,21 @@ void read_line(char *line, int *year, int *month, int *day, int *hour, int *minu
         !*(res = hour) || 
         !*(res = minute) || 
         !*(res = temperature);
+        // if (*year == 0) res = year;
+        // else if (*month == 0) res = month;
+        // else if (*day == 0) res = day;
+        // else if (*hour == 0) res = hour;
+        // else if (*minute == 0) res = minute;
+        // else if (*temperature == 0) res = temperature;
         // printf("%p : ", res);
         // printf("%d\n", *res);
         *res = atoi(tmp);
         // printf("%p : ", res);
         // printf("%d\n", *res);
-        printf("%d (%d); ", *res, *year);
+        printf("%d;", *res);
         tmp = strtok(NULL, ";");
     }
+    printf("\n       %d %d %d %d %d %d\n", *year, *month, *day, *hour, *minute, *temperature);
     printf("\n");
 }
 
@@ -54,8 +70,9 @@ int main(void){
     
     int year = 0, month = 0, day = 0, hour = 0, minute = 0, temperature = 0;
     int line_len = 4 + 2 + 2 + 2 + 2 + 3 + 7, data_len = 12;
-    char tmp_line[line_len]; struct month data[data_len];
-    int line_count = 0, data_size = 0, max = -99, min = 99, average = 0, current_month = 1;
+    char tmp_line[line_len]; struct month data[12] = {{0}};
+    int line_count = 0, data_size = 0, max = -99, min = 99, current_month = 1;
+    float average = 0;
     while (fgets(tmp_line, line_len, table)) {
         line_count++;
         char *tmp = strdup(tmp_line);
@@ -63,26 +80,26 @@ int main(void){
         if (check_line(tmp)) {
             read_line(tmp, &year, &month, &day, &hour, &minute, &temperature); 
             printf("%d %d %d %d %d %d\n", year, month, day, hour, minute, temperature);
-            if (current_month == month) {
-                ++data_size; 
-                if (temperature > max) max = temperature;
-                if (temperature < min) min = temperature;
-                average = mean(data_size);
-                data[month - 1].max = max; 
-                data[month - 1].min = min; 
-                data[month - 1].average = average;
-            }
-            else data_size = 0, max = -99, min = 99, average = 0, current_month = month;
+            if (current_month != month) {
+                data_size = 0; max = -99; min = 99; average = 0; current_month = month; }
+            ++data_size; 
+            if (temperature > max) max = temperature;
+            if (temperature < min) min = temperature;
+            if (data_size == 1) average = temperature;
+            else average = mean(data_size, average, temperature);
+            data[month - 1].max = max; 
+            data[month - 1].min = min; 
+            data[month - 1].average = average;
         }
         else printf("line %d is invalid\n", line_count);
-        free(tmp);
+        free(tmp); year = 0; month = 0; day = 0; hour = 0; minute = 0; temperature = 0;
     }
     fclose(table);
 
     for (size_t i = 0; i < sizeof(data) / sizeof(data[0]); i++)
         printf("\nMonth: %d\nAverage: %d\nMax: %d\nMin: %d\n", i + 1, data[i].average, data[i].max, data[i].min);
 
-    char str[] = "2021;4;16;1;1;0";
-    printf("%d", check_line(str));
+    // char str[] = "2021;01;16;01;01;-47";
+    // printf("%d", check_line(str));
     return 0;
 }
