@@ -66,7 +66,7 @@ int main(void){
             if (current_month == month) {
                 ++data_size; 
                 if (temperature > max) max = temperature;
-                else if (temperature < min) min = temperature;
+                if (temperature < min) min = temperature;
                 average = mean(data_size);
                 data[month - 1].max = max; 
                 data[month - 1].min = min; 
