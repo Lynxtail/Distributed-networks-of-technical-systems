@@ -6,12 +6,9 @@
 #include <stdlib.h>
 
 int main(void){
-    int n, k;
+    unsigned int n, k;
     scanf("%d %d", &n, &k);
-    for (int i = 0; i < k; i++){
-        if (n >> 1 == 0) { n = n << 31; n = abs(n); }
-        else n = n >> 1;
-        printf("%d ", n);
-    }
+    for (int i = 0; i < k; i++) n = (n >> 1) | (n << (32 - 1));
+    printf("%d ", n);
     return 0;
 }
