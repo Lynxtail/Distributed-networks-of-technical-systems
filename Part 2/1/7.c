@@ -3,22 +3,24 @@
 // образом число.
 
 #include <stdio.h>
+#include <stdint.h>
 #include <math.h>
 
-void binarisation(int n){
+void binarisation(uint32_t n){
     if (n / 2 != 0) binarisation(n / 2);
     putchar('0' + (n % 2));
 }
 
 int main(void){
-    unsigned int n;
+    uint32_t n;
     scanf("%d", &n);
-    binarisation(n); printf(" %d\n", n);
-    unsigned int mask = ~n; 
-    binarisation(mask); printf(" %d\n", mask);
-    mask += 255 << 8 * 3;  
-    binarisation(mask); printf(" %d\n", mask);
+    binarisation(n); printf(" %zu\n", n);
 
-    printf("%d", n ^ mask);
+    for (size_t i = 24; i < 32; i++){
+        n ^= (1 << i);
+        binarisation(n); printf(" %zu\n", n);
+        }
+
+    printf("%zu", n);
     return 0;
 }
